@@ -1,0 +1,13 @@
+import cv2 #libreria de open cv2 (vision artificial)
+from google.colab.patches import cv2_imshow #libreria de mostrar imagen
+faceClassif = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml") # direccionamiento de codigo entrenado para reconocimiento
+image = cv2.imread('CARLOS_SILVA.jpg') #asigna la imagen a la variable image
+gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY) #convierte la imagen a escala de grises para poder reconocer el rostro
+faces = faceClassif.detectMultiScale(gray,   #reconocimiento  utilizando la  data entrenada
+  scaleFactor=1.1,  
+  minNeighbors=5,
+  minSize=(30,30),
+  maxSize=(200,200))
+for (x,y,w,h) in faces: #aplica marcos en cada cara detectada.
+  cv2.rectangle(image,(x,y),(x+w,y+h),(0,255,0),2)
+cv2_imshow(image) #muestra los rostros encontrados.
